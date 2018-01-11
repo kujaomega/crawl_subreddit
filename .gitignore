@@ -1,0 +1,37 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+dependency-reduced-pom.xml
+
+# Serverless
+.serverless/
+
+# Python compiled files
+*.pyc
+
+# Node Js files
+node_modules
+.DS_STORE
+*.orig
+*.min.js
+build
+npm-*
+tests_output
+*.log
+yarn.lock
+
+# Security Reasons
+application.yml
