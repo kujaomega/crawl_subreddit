@@ -1,17 +1,4 @@
-# Welcome to Serverless!
-#
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
-
-service: subreddits-rest-api # NOTE: update this with your service name
+service: subreddits-rest-api
 
 provider:
   name: aws
@@ -32,37 +19,14 @@ provider:
       Resource: "*"
 custom:
   stage: prod
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:*"
-#      Resource: "*"
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
 
-
-# you can overwrite defaults here
-#defaults:
-#  stage: dev
-#  region: eu-west-1
-
-# you can add packaging information here
 package:
   include:
     - libraries/**
     - .so/**
-    # - lambda/lib/python2.7/site-packages
   exclude:
     - .git/**
     - lambda/**
-#  artifact: libraries.zip
 
 functions:
   getTop10ByPoints:
@@ -75,7 +39,6 @@ functions:
           timeout: 20000
     timeout: 90
     name: subreddits-rest-api-top10-points
-    # name: business-layer-lambda
     description: Get top 10 by points
 
   getTop10ByComments:
@@ -88,31 +51,4 @@ functions:
           timeout: 20000
     timeout: 90
     name: subreddits-rest-api-top10-comments
-    # name: business-layer-lambda
     description: Get top 10 by number of comments
-
-#    you can add any of the following events
-    # events:
-    #   - http:
-    #       path: likes
-    #       method: post
-    #       timeout: 20000
-    #       integration: lambda
-    #       cors: true
-    #       request:
-    #         passThrough: WHEN_NO_MATCH
-
-#      - s3: ${env.BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
