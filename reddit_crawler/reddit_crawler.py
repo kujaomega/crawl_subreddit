@@ -46,7 +46,7 @@ def get_subreddit_data(subreddit):
 def get_working_collection():
     with open('mongo_db.json') as data_file:
         data_item = json.load(data_file)
-    client = MongoClient(data_item["mongo_client"])
+    client = MongoClient(data_item["mongo_url"])
     test_database = client.get_database(data_item["mongo_database"])
     working_collection = test_database.get_collection(data_item["mongo_collection"])
     return working_collection

@@ -9,7 +9,8 @@ class RedditApi:
     def __init__(self, base_url="https://www.reddit.com", client_id="z1c3vPJqtNGq2Q",
                  secret="sjYln1SRY5AX2sywTFHwyLOqKUw", username="testBlueliv", password="P@@ssw0rd",
                  get_token_endpoint="/api/v1/access_token",
-                 authenticated_url="https://oauth.reddit.com", log_level=logging.NOTSET, http_timeout=60):
+                 authenticated_url="https://oauth.reddit.com", log_level=logging.NOTSET, http_timeout=60,
+                 initial_rate_limit=600, initial_reset_rate_limit=600):
         self.log_level = log_level
         self.http_timeout = http_timeout
 
@@ -23,8 +24,8 @@ class RedditApi:
                                       "Content-Type": "application/json",
                                       "User-Agent": "ChangeMeClient/0.1 by YourUsername"}
         self.authenticated_url = authenticated_url
-        self.rate_limit = 600
-        self.reset_rate_limit = 600
+        self.rate_limit = initial_rate_limit
+        self.reset_rate_limit = initial_reset_rate_limit
 
     def get_me(self):
         endpoint = "/api/v1/me"
@@ -68,7 +69,6 @@ class RedditApi:
         response = None
         status_code = None
         try:
-
             r = requests.post(url, verify=True, auth=client_auth, data=post_data,
                               headers=headers, timeout=self.http_timeout)
             status_code = r.status_code
