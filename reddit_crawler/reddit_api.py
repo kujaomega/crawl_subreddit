@@ -18,7 +18,6 @@ class RedditApi:
                      "username": username, "password": password, "duration": "permanent"}
         headers = {"User-Agent": "ChangeMeClient/0.1 by YourUsername"}
         status_code, response = self.post(base_url + get_token_endpoint, headers, client_auth, post_data)
-        print(status_code)
         self.token = response["token_type"] + " " + response["access_token"]
         self.authenticated_headers = {"Authorization": self.token,
                                       "Content-Type": "application/json",
@@ -38,12 +37,10 @@ class RedditApi:
         if last_subreddit is not None:
             queryparams = queryparams + "&after=" + last_subreddit
         status_code, response = self.get(self.authenticated_url + endpoint + queryparams, headers=self.authenticated_headers)
-        print(status_code)
         return response
 
     def get_comments_url(self, url_path):
         status_code, response = self.get(self.authenticated_url + url_path, headers=self.authenticated_headers)
-        print(status_code)
         return response
 
     def get(self, url, headers):
@@ -57,8 +54,6 @@ class RedditApi:
             r = requests.get(url, verify=True, headers=headers, timeout=self.http_timeout)
             self.rate_limit = float(r.headers['x-ratelimit-remaining'])
             self.reset_rate_limit = float(r.headers['x-ratelimit-reset'])
-            print('rate_limit', r.headers['x-ratelimit-remaining'])
-            print('reset_rate_limit', r.headers['x-ratelimit-reset'])
             status_code = r.status_code
             r.raise_for_status()
             response = r.json()

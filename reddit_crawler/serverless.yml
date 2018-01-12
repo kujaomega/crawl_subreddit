@@ -22,6 +22,9 @@ package:
     - libraries/**
     - .so/**
   exclude:
+    - "*.sh"
+    - "*.txt"
+    - "*.sh"
     - .git/**
     - lambda/**
 functions:
