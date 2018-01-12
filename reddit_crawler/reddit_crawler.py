@@ -39,7 +39,7 @@ def get_subreddit_data(subreddit):
     created_subreddit['punctuation'] = subreddit['data']['ups']
     created_subreddit['created'] = subreddit['data']['created']
     created_subreddit['num_comments'] = subreddit['data']['num_comments']
-    created_subreddit['external_article'] = subreddit['data']['permalink'] in subreddit['data']['url']
+    created_subreddit['external_article'] = not subreddit['data']['permalink'] in subreddit['data']['url']
     return created_subreddit
 
 
@@ -85,5 +85,5 @@ def update_subreddits(mongo_collection, body, logger):
 
 
 if __name__ == "__main__":
-    first_n_pages = 5
+    first_n_pages = 50000
     crawl_api_endpoint(first_n_pages)
