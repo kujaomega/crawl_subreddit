@@ -1,0 +1,34 @@
+service: crawl-python-subreddits
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: eu-central-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "cloudformation:CreateStack"
+        - "cloudformation:DeleteStack"
+        - "cloudformation:DescribeStack*"
+        - "cloudformation:UpdateStack"
+        - "cloudwatch:GetMetricStatistics"
+        - "iam:ListInstanceProfiles"
+        - "iam:ListRoles"
+        - "iam:PassRole"
+      Resource: "*"
+
+package:
+  include:
+    - libraries/**
+    - .so/**
+  exclude:
+    - .git/**
+    - lambda/**
+functions:
+  computeClustersFunction:
+    handler: reddit_crawler.lambda_handler
+    events:
+      - schedule: cron(0/60 * * * ? *)
+    timeout: 90
+    name: crawl-python-subreddits
+    description: Crawl python subreddits

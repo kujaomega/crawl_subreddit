@@ -1,6 +1,7 @@
 import requests
 import requests.auth
 import logging
+import time
 
 
 class RedditApi:
@@ -23,6 +24,8 @@ class RedditApi:
                                       "Content-Type": "application/json",
                                       "User-Agent": "ChangeMeClient/0.1 by YourUsername"}
         self.authenticated_url = authenticated_url
+        self.rate_limit = 600
+        self.reset_rate_limit = 600
 
     def get_me(self):
         endpoint = "/api/v1/me"
@@ -48,8 +51,14 @@ class RedditApi:
         logger.setLevel(self.log_level)
         response = None
         status_code = None
+        if self.rate_limit <= 0:
+            time.sleep(self.reset_rate_limit)
         try:
             r = requests.get(url, verify=True, headers=headers, timeout=self.http_timeout)
+            self.rate_limit = float(r.headers['x-ratelimit-remaining'])
+            self.reset_rate_limit = float(r.headers['x-ratelimit-reset'])
+            print('rate_limit', r.headers['x-ratelimit-remaining'])
+            print('reset_rate_limit', r.headers['x-ratelimit-reset'])
             status_code = r.status_code
             r.raise_for_status()
             response = r.json()
@@ -65,7 +74,7 @@ class RedditApi:
         status_code = None
         try:
 
-            r = requests.post(url, auth=client_auth, data=post_data,
+            r = requests.post(url, verify=True, auth=client_auth, data=post_data,
                               headers=headers, timeout=self.http_timeout)
             status_code = r.status_code
             r.raise_for_status()
