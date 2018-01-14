@@ -10,6 +10,24 @@ def get_top_10_by_points(event, context):
     return cursor_to_json(result)
 
 
+def get_top_10_by_num_comments(event, context):
+    working_collection = get_working_collection()
+    found_subreddits = get_find_subreddits(event, working_collection)
+    result = found_subreddits.sort("num_comments", pymongo.DESCENDING).limit(10)
+    return cursor_to_json(result)
+
+
+def get_top_10_submitters(event, context):
+    working_collection = get_working_collection()
+    pipe = [{"$group":
+            {"_id": {"author": "$author"},
+             "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}},
+            {"$limit": 10}]
+    found_subreddits = working_collection.aggregate(pipeline=pipe)
+    return cursor_to_json(found_subreddits)
+
+
 def get_find_subreddits(event, working_collection):
     if event['query']:
         if event['query']['rank']:
@@ -24,13 +42,6 @@ def get_find_subreddits(event, working_collection):
             return result
     result = working_collection.find()
     return result
-
-
-def get_top_10_by_num_comments(event, context):
-    working_collection = get_working_collection()
-    found_subreddits = get_find_subreddits(event, working_collection)
-    result = found_subreddits.sort("num_comments", pymongo.DESCENDING).limit(10)
-    return cursor_to_json(result)
 
 
 def cursor_to_json(cursor):

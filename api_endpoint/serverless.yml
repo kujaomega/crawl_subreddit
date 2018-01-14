@@ -52,3 +52,15 @@ functions:
     timeout: 90
     name: subreddits-rest-api-top10-comments
     description: Get top 10 by number of comments
+
+  getTop10Submitters:
+    handler: rest_api.get_top_10_submitters
+    events:
+      - http:
+          method: get
+          path: top10submitters
+          integration: lambda
+          timeout: 20000
+    timeout: 90
+    name: subreddits-rest-api-top10-submitters
+    description: Get top 10 submitters
