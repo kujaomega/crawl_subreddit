@@ -1,4 +1,4 @@
-FROM python:2.7
+FROM python:3.6
 
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -32,6 +32,6 @@ RUN rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/app
 COPY . .
-RUN pip install -r requeriments.txt -t .
+RUN python3.6 -m pip install -r requeriments.txt -t .
 
 ENTRYPOINT ["serverless", "deploy", "--stage", "dev"]

@@ -37,7 +37,7 @@ functions:
           path: top10punctuation
           integration: lambda
           timeout: 20000
-    timeout: 90
+    timeout: 30
     name: subreddits-rest-api-top10-points
     description: Get top 10 by points
 
@@ -49,7 +49,7 @@ functions:
           path: top10comments
           integration: lambda
           timeout: 20000
-    timeout: 90
+    timeout: 30
     name: subreddits-rest-api-top10-comments
     description: Get top 10 by number of comments
 
@@ -61,7 +61,7 @@ functions:
           path: top10submitters
           integration: lambda
           timeout: 20000
-    timeout: 90
+    timeout: 30
     name: subreddits-rest-api-top10-submitters
     description: Get top 10 submitters
 
@@ -73,7 +73,7 @@ functions:
           path: top10commenters
           integration: lambda
           timeout: 20000
-    timeout: 90
+    timeout: 30
     name: subreddits-rest-api-top10-commenters
     description: Get top 10 commenters
 
@@ -85,7 +85,7 @@ functions:
           path: allPostsByUser
           integration: lambda
           timeout: 20000
-    timeout: 90
+    timeout: 30
     name: subreddits-rest-api-all-posts-by-user
     description: Get all posts by user
 
@@ -97,7 +97,7 @@ functions:
           path: allPostsByUserComments
           integration: lambda
           timeout: 20000
-    timeout: 90
+    timeout: 30
     name: subreddits-rest-api-all-posts-by-user-comments
     description: Get all posts by user comments
 
@@ -109,6 +109,6 @@ functions:
           path: averageCommentKarma
           integration: lambda
           timeout: 20000
-    timeout: 90
+    timeout: 30
     name: subreddits-rest-api-all-average-comment-karma-by-user
     description: Get average comment karma by user

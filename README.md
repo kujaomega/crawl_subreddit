@@ -7,7 +7,7 @@ As there is a throttling time in the api calls, I have not implemented parallell
 
 I have choosen to do use AWS lambdas to make this project as It is a stadistics api and will not have a need to be requested every second. For this reason lambdas will decrease the costs of the api. As AWS have got a free tier of service and Mongodb offer a free database, I have implemented the services in a free way.
 
-To use the service I have created first a Mongodb database and I have stored the dabase information in a mongo_db.json file. To execute the files I assume you are using Ubuntu. You also need to have AWS credentials stored in your "~/.aws/" folder. First of all, to crawl all the data to the database, execute the reddit_crawler/reddit_crawler.py.
+To use the service I have created first a Mongodb database and I have stored the dabase information in a mongo_db.json file. To execute the files I assume you are using Ubuntu and you have docker and pyhton3.6 installed. You also need to have AWS credentials stored in your "~/.aws/" folder. First of all, to crawl all the data to the database, execute the reddit_crawler/reddit_crawler.py.
 Then you need to execute the reddit_crawler/deploy_lambda.sh to deploy the lambda for constantly update database. You need to execute the api_endpoint/deploy_lambda.sh to create the api endpoints.
 
 
