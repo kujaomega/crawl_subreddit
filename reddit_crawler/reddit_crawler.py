@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     crawl_api_endpoint()
 
 
-def crawl_api_endpoint(pages_limit=1):
+def crawl_api_endpoint(pages_limit=2):
     reddit_api = RedditApi()
     pages_limit = pages_limit
     last_subreddit_name = None

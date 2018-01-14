@@ -31,7 +31,7 @@ functions:
   computeClustersFunction:
     handler: reddit_crawler.lambda_handler
     events:
-      - schedule: cron(0/60 * * * ? *)
+      - schedule: cron(0/15 * * * ? *)
     timeout: 90
     name: crawl-python-subreddits
     description: Crawl python subreddits
