@@ -33,7 +33,7 @@ class RedditApi:
         return response
 
     def get_subreddits(self, last_subreddit=None):
-        endpoint = "/r/Python/new.json"
+        endpoint = "/r/Python.json"
         queryparams = "?sort=new&count=25"
         if last_subreddit is not None:
             queryparams = queryparams + "&after=" + last_subreddit
