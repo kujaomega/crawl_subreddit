@@ -28,6 +28,60 @@ def get_top_10_submitters(event, context):
     return cursor_to_json(found_subreddits)
 
 
+def get_top_10_commenters(event, context):
+    working_collection = get_working_collection()
+    pipe = [{"$unwind": "$comments"},
+            {"$group":
+            {"_id": "$comments.author",
+             "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}},
+            {"$limit": 10}]
+    found_subreddits = working_collection.aggregate(pipeline=pipe)
+    return cursor_to_json(found_subreddits)
+
+
+def get_all_posts_by_user(event, context):
+    author = get_query_author(event)
+    if author is None:
+        return {}
+    working_collection = get_working_collection()
+    result = working_collection.find({'author': author})
+    return cursor_to_json(result)
+
+
+def get_all_posts_by_user_comments(event, context):
+    author = get_query_author(event)
+    if author is None:
+        return {}
+    working_collection = get_working_collection()
+    result = working_collection.find({"comments": {"$elemMatch": {"author": author}}})
+    return cursor_to_json(result)
+
+
+def get_average_comment_karma_by_user(event, context):
+    author = get_query_author(event)
+    if author is None:
+        return {}
+    working_collection = get_working_collection()
+    pipe = [{"$unwind": "$comments"},
+            {"$group":
+            {"_id": "$comments.author",
+             "count": {"$sum": 1},
+             "avgPunctuation": {"$avg": "$comments.punctuation"}
+             }},
+            {"$match": {"_id": author}}]
+    average_comment_karma = working_collection.aggregate(pipeline=pipe)
+    return cursor_to_json(average_comment_karma)
+
+
+def get_query_author(event):
+    author = None
+    if event['query']:
+        if event['query']['author']:
+            author = event['query']['author']
+    return author
+
+
 def get_find_subreddits(event, working_collection):
     if event['query']:
         if event['query']['rank']:
