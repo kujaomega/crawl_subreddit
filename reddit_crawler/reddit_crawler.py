@@ -36,12 +36,17 @@ def get_subreddit_data(subreddit):
     created_subreddit['external_url'] = subreddit['data']['url']
     created_subreddit['discussion_url'] = subreddit['data']['permalink']
     created_subreddit['author'] = subreddit['data']['author']
-    created_subreddit['punctuation'] = subreddit['data']['ups']
+    created_subreddit['punctuation'] = subreddit['data']['score']
     created_subreddit['created'] = subreddit['data']['created']
     created_subreddit['num_comments'] = subreddit['data']['num_comments']
     created_subreddit['external_article'] = not subreddit['data']['permalink'] in subreddit['data']['url']
     return created_subreddit
 
+def get_comments_info(reddit_api3, url):
+    comment_data_to_save = dict()
+    reddit_api = RedditApi()
+    comments_data_from_url = reddit_api.get_comments_url(url)
+    comment_data_to_save[1]['children']
 
 def get_working_collection():
     with open('mongo_db.json') as data_file:
