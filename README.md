@@ -1,5 +1,6 @@
 
-Assumptions:
+**Assumptions:**
+
 In this project I assume that the reddit endpoint ("/r/Python.json") gives you the latest posts ordered by the recent update.
 
 As there is a throttling time in the api calls, I have not implemented parallellism, as the bottleneck is the throttling as you have got 600 api calls in 600 seconds.
@@ -10,7 +11,8 @@ To use the service I have created first a Mongodb database and I have stored the
 Then you need to execute the reddit_crawler/deploy_lambda.sh to deploy the lambda to update the database. And you need to execute the api_endpoint/deploy_lambda.sh to create the api endpoints.
 
 
-BONUS:
+**BONUS:**
+
 1.
 I choosen the explained architecture for an ease to implement this step.
 
@@ -25,3 +27,19 @@ I have implemented the average comment karma for a user as a challenge but I hav
 
 5.
 I have implemented a script for deploying the api endpoint buy I have not implemented the tests in the continuous integration due the lack of time.
+
+
+**ENDPOINTS:**
+    The api calls will be available a week
+  GET - https://jg6l4dw34i.execute-api.eu-central-1.amazonaws.com/dev/top10punctuation
+    queryparam: rank["all", "discussion" or "external"]
+  GET - https://jg6l4dw34i.execute-api.eu-central-1.amazonaws.com/dev/top10comments
+    queryparam: rank["all", "discussion" or "external"]
+  GET - https://jg6l4dw34i.execute-api.eu-central-1.amazonaws.com/dev/top10submitters
+  GET - https://jg6l4dw34i.execute-api.eu-central-1.amazonaws.com/dev/top10commenters
+  GET - https://jg6l4dw34i.execute-api.eu-central-1.amazonaws.com/dev/allPostsByUser
+    queryparam: author
+  GET - https://jg6l4dw34i.execute-api.eu-central-1.amazonaws.com/dev/allPostsByUserComments
+    queryparam: author
+  GET - https://jg6l4dw34i.execute-api.eu-central-1.amazonaws.com/dev/averageCommentKarma
+    queryparam: author
