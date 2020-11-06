@@ -28,7 +28,7 @@ I have implemented the average comment karma for a user as a challenge but I hav
 5.
 I have implemented a script for deploying the api endpoint buy I have not implemented the tests in the continuous integration due the lack of time.
 
-
+# The endpoints are not working ATM
 **ENDPOINTS:**
     The api calls will be available a week or until a response
 
